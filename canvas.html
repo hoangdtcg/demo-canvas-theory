@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="Circle.js"></script>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="800" height="400" style="background-color: bisque;"></canvas>
+    <img id="ball" src="basket-ball.png" alt="" style="display: none;">
+</body>
+<script>
+    let paper = document.getElementById('myCanvas'); //giay
+    let pen = paper.getContext('2d'); //but
+
+    // Bán kính,Tọa độ tâm
+
+
+
+    let width = 400;
+    let height = 200;
+    let x1 = (paper.width - width) / 2;
+    let y1 = (paper.height - height) / 2;
+
+    let x = paper.width / 2;
+    let y = paper.height / 2;
+    let r = 50;
+
+
+    // drawRect(x1, y1, width, height, "white")
+
+    // drawCircle(x + 100, y + 100, r, "green");
+
+    // drawLine(paper.width / 2, 0, paper.width, paper.height)
+    // drawLine(paper.width, paper.height, 0, paper.height / 2)
+    // drawLine(0, paper.height / 2, paper.width, paper.height / 2)
+    // drawLine(paper.width, paper.height / 2, 0, paper.height)
+    // drawLine(0, paper.height, paper.width / 2, 0)
+
+    // window.onload = function() {
+    //     drawImageToCanvas2('basket-ball.png');
+    // }
+
+    // setInterval(createCircles, 500);
+
+    // x = 100;
+    // y = 100;
+    // drawCircle(x, y, r, "green");
+
+    let circles = [];
+    createCircles();
+
+    function move() {
+        pen.clearRect(0, 0, paper.width, paper.height);
+        for (let i = 0; i < circles.length; i++) {
+            circles[i].moveRight();
+            // circles[i].render(paper);
+            circles[i].renderImg(paper);
+            if (circles[i].x + circles[i].radius >= paper.width || circles[i].x <= 0) {
+                circles[i].speed = -circles[i].speed;
+            }
+        }
+
+    }
+
+    setInterval(move, 60)
+
+
+    function createCircles() {
+        pen.clearRect(0, 0, paper.width, paper.height);
+        for (let i = 0; i < 10; i++) {
+            let r = randomNumber(30, 60);
+            let x = randomNumber(r, paper.width - r);
+            let y = randomNumber(r, paper.height - r);
+            let color = randomColor();
+            let speed = randomNumber(3, 10);
+
+            let circle = new Circle(x, y, r, color, speed);
+            circles.push(circle);
+            // drawCircle(x, y, r, color);
+
+        }
+    }
+
+    function randomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    function randomColor() {
+        let r = randomNumber(0, 255);
+        let g = randomNumber(0, 255);
+        let b = randomNumber(0, 255);
+        let rgb = `rgb(${r},${g},${b})`;
+        return rgb;
+    }
+
+    function drawCircle(x, y, radius, color) {
+        pen.beginPath();
+        pen.arc(x, y, radius, 0, Math.PI * 2); //anticlockwise:true/false
+        pen.strokeStyle = color;
+        pen.stroke(); //vẽ viền
+        pen.fillStyle = color;
+        pen.fill();
+        pen.closePath();
+    }
+
+    function drawRect(x, y, width, height, color) {
+        pen.beginPath();
+        pen.rect(x, y, width, height);
+        pen.lineWidth = 30;
+        pen.strokeStyle = "black";
+        pen.stroke();
+        pen.fillStyle = color;
+        pen.fill();
+        pen.closePath();
+    }
+
+    function drawLine(x1, y1, x2, y2) {
+        pen.beginPath();
+        pen.moveTo(x1, y1);
+        pen.lineTo(x2, y2);
+        pen.lineWidth = 2;
+        pen.stroke();
+        pen.closePath();
+    }
+
+    function drawImageToCanvas(idImage) {
+        let img = document.getElementById(idImage);
+        let x = 50;
+        let y = 50;
+        let width = 100;
+        let height = 100;
+        pen.drawImage(img, x, y, width, height);
+    }
+
+    function drawImageToCanvas2(nameImg) {
+        let img = new Image();
+        img.src = nameImg;
+        let x = 50;
+        let y = 50;
+        let width = 100;
+        let height = 100;
+        pen.drawImage(img, x, y, width, height);
+    }
+</script>
+
+</html>

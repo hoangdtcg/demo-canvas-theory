@@ -1,0 +1,35 @@
+Laravel Overview
+- artisan
+- Route
+    - Form
+        @csrf -> csrf_token() -> sinh ra 1 trường token xác thực form
+        - post
+        - get
+    - API
+        - patch/put
+        - delele
+        - any
+        - match
+        - resoucre -> chuẩn rule
+- Controller
+- Eloquent (ORM) - Query Builder - Query Raw
+- View - Blade
+- Migration - Seeder
+- Middleware - Bộ lọc
+- Validation
+- CRUD - Thực hành
+
+- Request Life Cycle
+- Service Provider
+
+- DI (Nâng cao) - Depentancy Injection
+- Repository - Design Pattern
+
+- Upload file
+    - Upload Image
+- Command
+
+Web
+- Webservice - API
+- Ajax JQuery
+- I18N
